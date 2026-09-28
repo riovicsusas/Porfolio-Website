@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riovic Matthew G. Susas — Portfolio</title>
+<meta name="description" content="Riovic Matthew G. Susas — Shopify & e-commerce automation specialist. Projects, tools, and contact.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ MOBILE TOP BAR ============ -->
+<header class="mobile-bar">
+  <div class="mobile-bar__identity">
+    <div class="avatar avatar--sm">RS</div>
+    <div>
+      <p class="mobile-bar__name">Riovic Susas</p>
+      <p class="mobile-bar__handle">Automation &amp; Shopify Ops</p>
+    </div>
+  </div>
+  <button class="mobile-bar__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <i class="ph-bold ph-list"></i>
+  </button>
+</header>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__top">
+      <div class="avatar avatar--lg">RS</div>
+      <h1 class="sidebar__name">Riovic Matthew G. Susas</h1>
+      <p class="sidebar__handle">Ecommerce &amp; Automation Specialist</p>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Primary">
+      <a href="#home" class="navlink is-active" data-section="home">
+        <i class="ph ph-house"></i><span>Home</span>
+      </a>
+      <a href="#projects" class="navlink" data-section="projects">
+        <i class="ph ph-folder"></i><span>Projects</span>
+      </a>
+      <a href="#about" class="navlink" data-section="about">
+        <i class="ph ph-user"></i><span>About</span>
+      </a>
+      <a href="#contact" class="navlink" data-section="contact">
+        <i class="ph ph-envelope-simple"></i><span>Contact</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__socials">
+      <p class="sidebar__socials-label">Find me on</p>
+      <a href="#" class="sociallink" aria-label="Facebook (coming soon)">
+        <i class="ph-bold ph-facebook-logo"></i><span>Facebook</span><em>TBA</em>
+      </a>
+      <a href="#" class="sociallink" aria-label="LinkedIn (coming soon)">
+        <i class="ph-bold ph-linkedin-logo"></i><span>LinkedIn</span><em>TBA</em>
+      </a>
+      <a href="#" class="sociallink" aria-label="Discord (coming soon)">
+        <i class="ph-bold ph-discord-logo"></i><span>Discord</span><em>TBA</em>
+      </a>
+      <a href="#" class="sociallink" aria-label="Upwork (coming soon)">
+        <i class="ph-bold ph-briefcase"></i><span>Upwork</span><em>TBA</em>
+      </a>
+      <a href="#" class="sociallink" aria-label="OnlineJobs.ph (coming soon)">
+        <i class="ph-bold ph-globe"></i><span>OnlineJobs.ph</span><em>TBA</em>
+      </a>
+    </div>
+
+    <div class="sidebar__footer">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="ph ph-moon"></i>
+      </button>
+      <p>&copy; 2026 Riovic Susas</p>
+    </div>
+  </aside>
+
+  <div class="sidebar__scrim" id="sidebarScrim"></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero__text">
+        <h2 class="hero__slogan">Set it up right.<br>Let it run itself.</h2>
+        <p class="hero__sub">Shopify builds, Flow automations, and CRM wiring that keep working long after the invoice is paid — so leads get followed up and orders get fulfilled without you watching the dashboard.</p>
+      </div>
+      <a href="#contact" class="btn btn--primary hero__cta">
+        Get in touch <i class="ph-bold ph-arrow-up-right"></i>
+      </a>
+    </section>
+
+    <!-- DAILY DRIVERS MARQUEE -->
+    <section class="drivers" aria-label="Daily tools">
+      <div class="drivers__label">
+        <p class="drivers__eyebrow">Daily drivers</p>
+        <p class="drivers__title">Tools I work with</p>
+      </div>
+      <div class="drivers__track-wrap">
+        <div class="drivers__track" id="driversTrack">
+          <!-- duplicated in JS for seamless loop -->
+        </div>
+      </div>
+    </section>
+
+    <!-- BENTO GRID -->
+    <section class="bento">
+
+      <!-- Latest / update feed -->
+      <article class="card card--feed card--tilt" id="latest">
+        <header class="card__head">
+          <span class="card__icon"><i class="ph-bold ph-lightning"></i></span>
+          <h3>Latest</h3>
+        </header>
+        <ul class="feed">
+          <li class="feed__item">
+            <span class="feed__dot"></span>
+            <div>
+              <p class="feed__title">Rebuilt a DSers → Shopify fulfillment sync</p>
+              <p class="feed__body">Cut manual order-tagging to zero with a Flow automation triggered on fulfillment status.</p>
+            </div>
+          </li>
+          <li class="feed__item">
+            <span class="feed__dot"></span>
+            <div>
+              <p class="feed__title">Klaviyo win-back flow, redesigned</p>
+              <p class="feed__body">Segmented by last-purchase category instead of a single blanket flow — replies went up.</p>
+            </div>
+          </li>
+          <li class="feed__item">
+            <span class="feed__dot"></span>
+            <div>
+              <p class="feed__title">Gorgias macros wired to Slack</p>
+              <p class="feed__body">Refund requests over a threshold now ping the team channel automatically for a second look.</p>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Projects -->
+      <a href="#projects" class="card card--link card--tilt">
+        <header class="card__head">
+          <span class="card__icon"><i class="ph-bold ph-folder"></i></span>
+          <h3>Projects</h3>
+        </header>
+        <p class="card__desc">Storefronts, funnels, and back-office automations built to solve real operational problems.</p>
+        <span class="card__go">View projects <i class="ph-bold ph-arrow-right"></i></span>
+      </a>
+
+      <!-- About -->
+      <a href="#about" class="card card--link card--tilt">
+        <header class="card__head">
+          <span class="card__icon"><i class="ph-bold ph-user"></i></span>
+          <h3>About</h3>
+        </header>
+        <p class="card__desc">Who I am, how I work, and the stack I reach for by default.</p>
+        <span class="card__go">Read more <i class="ph-bold ph-arrow-right"></i></span>
+      </a>
+
+      <!-- Testimonials -->
+      <article class="card card--testimonials card--tilt">
+        <header class="card__head">
+          <span class="card__icon"><i class="ph-bold ph-quotes"></i></span>
+          <h3>Testimonials</h3>
+        </header>
+        <p class="card__desc">What people I've built for say about the work.</p>
+        <div class="testi-list">
+          <div class="testi">
+            <p class="testi__name">Client name</p>
+            <p class="testi__role">Operations Manager, e-commerce brand</p>
+            <p class="testi__tags">Shopify Flow · Klaviyo · Fulfillment</p>
+          </div>
+          <div class="testi">
+            <p class="testi__name">Client name</p>
+            <p class="testi__role">Founder, DTC store</p>
+            <p class="testi__tags">Matrixify · Catalog cleanup · DSers</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Contact -->
+      <a href="#contact" class="card card--contact card--tilt" id="contact">
+        <span class="card__icon card__icon--contact"><i class="ph-bold ph-paper-plane-tilt"></i></span>
+        <div>
+          <h3>Contact me</h3>
+          <p class="card__desc">Have a store that needs a workflow built once and run forever? Let's talk.</p>
+        </div>
+        <i class="ph-bold ph-arrow-right card__arrow"></i>
+      </a>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <h2 class="section__title">Projects</h2>
+      <p class="section__sub">A working sample — swap these for your own case studies.</p>
+      <div class="projects-grid">
+        <article class="project card--tilt">
+          <div class="project__thumb"><i class="ph ph-shopping-cart-simple"></i></div>
+          <h4>Storefront rebuild for a home-goods brand</h4>
+          <p>Theme customization, upsell logic, and a checkout flow tuned to cut drop-off.</p>
+          <p class="project__tags">Shopify · Liquid · CRO</p>
+        </article>
+        <article class="project card--tilt">
+          <div class="project__thumb"><i class="ph ph-flow-arrow"></i></div>
+          <h4>Order-tagging automation</h4>
+          <p>A Shopify Flow pipeline that tags, routes, and escalates orders without manual review.</p>
+          <p class="project__tags">Shopify Flow · DSers</p>
+        </article>
+        <article class="project card--tilt">
+          <div class="project__thumb"><i class="ph ph-chat-circle-dots"></i></div>
+          <h4>Support macro library</h4>
+          <p>A Gorgias macro + Slack alert system that shortened first-response time.</p>
+          <p class="project__tags">Gorgias · Slack</p>
+        </article>
+        <article class="project card--tilt">
+          <div class="project__thumb"><i class="ph ph-table"></i></div>
+          <h4>Bulk catalog migration</h4>
+          <p>A 12,000-SKU catalog cleaned and re-imported with zero broken variants.</p>
+          <p class="project__tags">Matrixify · Data cleanup</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <h2 class="section__title">About</h2>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I build the operational layer that e-commerce brands run on — storefronts, fulfillment logic, and the automations that connect them, so the team spends less time on repetitive tasks.</p>
+          <p>Most of my day lives inside Shopify and the tools that talk to it: Flow for the logic, Klaviyo for the follow-up, Gorgias for support, DSers for fulfillment, and Slack to keep everyone in the loop. I lean on Claude for the parts of the job that benefit from a second set of hands — drafting, debugging, and thinking through edge cases.</p>
+          <p>If a task is repeated by hand more than a couple of times, my instinct is to build it once and let it run.</p>
+        </div>
+        <div class="about-facts">
+          <div class="fact"><i class="ph-bold ph-shopping-bag"></i><span>Shopify &amp; e-commerce ops</span></div>
+          <div class="fact"><i class="ph-bold ph-git-branch"></i><span>Workflow &amp; CRM automation</span></div>
+          <div class="fact"><i class="ph-bold ph-headset"></i><span>Support tooling</span></div>
+          <div class="fact"><i class="ph-bold ph-robot"></i><span>AI-assisted builds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--contact" id="contactForm">
+      <h2 class="section__title">Let's build something that runs itself</h2>
+      <p class="section__sub">Reach out directly, or drop a note below.</p>
+      <div class="contact-grid">
+        <div class="contact-links">
+          <a href="#" class="contact-row"><i class="ph-bold ph-facebook-logo"></i><span>Facebook</span><em>TBA</em></a>
+          <a href="#" class="contact-row"><i class="ph-bold ph-linkedin-logo"></i><span>LinkedIn</span><em>TBA</em></a>
+          <a href="#" class="contact-row"><i class="ph-bold ph-discord-logo"></i><span>Discord</span><em>TBA</em></a>
+          <a href="#" class="contact-row"><i class="ph-bold ph-briefcase"></i><span>Upwork</span><em>TBA</em></a>
+          <a href="#" class="contact-row"><i class="ph-bold ph-globe"></i><span>OnlineJobs.ph</span><em>TBA</em></a>
+        </div>
+        <form class="contact-form" id="contactFormEl">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@email.com" required>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="What are you looking to build?" required></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary">Send message <i class="ph-bold ph-paper-plane-tilt"></i></button>
+          <p class="contact-form__note" id="formNote"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2026 Riovic Matthew G. Susas. All rights reserved.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
