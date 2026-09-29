@@ -126,6 +126,7 @@
           <button class="tab-btn active" onclick="switchTab('feed', this)"><i class="ph ph-newspaper" style="margin-right:4px;"></i> Feed</button>
           <button class="tab-btn" onclick="switchTab('projects', this)"><i class="ph ph-folder-open" style="margin-right:4px;"></i> Projects</button>
           <button class="tab-btn" onclick="switchTab('export', this)"><i class="ph ph-github-logo" style="margin-right:4px;"></i> Deploy</button>
+          <button class="tab-btn" onclick="switchTab('docs', this)"><i class="ph ph-book-open-text" style="margin-right:4px;"></i> Docs</button>
         </div>
         <button class="logout-btn" onclick="doLogout()"><i class="ph ph-sign-out"></i></button>
       </div>
@@ -154,7 +155,13 @@
             <div class="form-row">
               <div class="form-field">
                 <label>Link (Optional)</label>
-                <input type="text" id="newF_link" placeholder="https://... or #page-projects" />
+                <input type="text" id="newF_link" placeholder="#project:Folder Name:deliverable-id" />
+                <span class="hint">
+                  <strong>3 formats:</strong><br>
+                  🎯 <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">#project:Shopify Store Buildout:shopify-buildout-d1</code> — opens that folder &amp; pops the modal<br>
+                  📄 <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">#page-projects</code> — navigates to a page<br>
+                  🌐 <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">https://...</code> — opens external link in new tab
+                </span>
               </div>
               <div class="form-field">
                 <label>Image URL (Optional)</label>
@@ -218,8 +225,14 @@
                 </select>
               </div>
             </div>
+            <!-- Folder assignment -->
+            <div class="form-field">
+              <label>Folder Name <span style="font-weight:400;text-transform:none;">(Groups deliverables — e.g. "Shopify Store Buildout")</span></label>
+              <input type="text" id="newP_folder" placeholder="e.g. Shopify Store Buildout" />
+              <span class="hint">Deliverables with the same Folder Name appear inside the same folder on the site.</span>
+            </div>
             <div class="form-row">
-              <div class="form-field"><label>Title</label><input type="text" id="newP_title" placeholder="e.g. Shopify Store Buildout" /></div>
+              <div class="form-field"><label>Deliverable Title</label><input type="text" id="newP_title" placeholder="e.g. Deliverable #1 — Full Store Setup" /></div>
               <div class="form-field"><label>Subtitle</label><input type="text" id="newP_subtitle" placeholder="e.g. Store Setup" /></div>
             </div>
             <div class="form-field"><label>Short Description (Card)</label><textarea id="newP_short" style="min-height:50px;"></textarea></div>
@@ -285,6 +298,57 @@
         </div>
       </div>
 
+      <!-- ════════ DOCS TAB ════════ -->
+      <div id="view-docs" class="view-section">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-header-left">
+              <div class="acl-icon"><i class="ph ph-book-open-text"></i></div>
+              <div class="acl-text"><h2>Knowledge Base</h2><p>Reference guide for updating your portfolio.</p></div>
+            </div>
+          </div>
+          
+          <div style="margin-top:20px; font-size:13px; color:var(--text); line-height:1.7;">
+            
+            <h3 style="color:var(--navy); font-size:16px; margin-bottom:12px; border-bottom:1px solid var(--warm1); padding-bottom:6px;"><i class="ph ph-link" style="margin-right:6px;"></i>Feed Links & Deep Routing</h3>
+            <p style="margin-bottom:12px; color:var(--muted);">When adding an item to the <b>Feed</b>, you can use the <b>Link</b> field to make the feed item clickable. There are three supported formats:</p>
+            
+            <div style="background:var(--bg); border-radius:10px; padding:16px; margin-bottom:24px; border:1px solid var(--warm1);">
+              <p style="margin-bottom:8px;"><b>1. Deep Link to a Project Deliverable (Recommended)</b></p>
+              <p style="margin-bottom:12px; color:var(--muted); font-size:12px;">This automatically opens the Projects page, clicks the correct folder, and pops open the modal.</p>
+              <pre style="margin-bottom:12px;">#project:Folder Name:deliverable-id</pre>
+              <ul style="padding-left:20px; margin-bottom:12px; font-size:12px; color:var(--muted);">
+                <li>Replace <code>Folder Name</code> with the exact text you typed in the Folder Name field (e.g. <i>Shopify Store Buildout</i>).</li>
+                <li>Replace <code>deliverable-id</code> with the exact Project ID you assigned to it (e.g. <i>shopify-buildout-d1</i>).</li>
+                <li><b>Example:</b> <code>#project:Shopify Store Buildout:shopify-buildout-d1</code></li>
+              </ul>
+              
+              <hr style="border:0; border-top:1px solid var(--warm1); margin:16px 0;">
+              
+              <p style="margin-bottom:8px;"><b>2. Internal Page Link</b></p>
+              <p style="margin-bottom:12px; color:var(--muted); font-size:12px;">Navigates the user to a different page on the site.</p>
+              <pre style="margin-bottom:12px;">#page-projects</pre>
+              <p style="font-size:12px; color:var(--muted);">Available pages: <code>#page-projects</code>, <code>#page-about</code>, <code>#page-contact</code></p>
+              
+              <hr style="border:0; border-top:1px solid var(--warm1); margin:16px 0;">
+
+              <p style="margin-bottom:8px;"><b>3. External Link</b></p>
+              <p style="margin-bottom:12px; color:var(--muted); font-size:12px;">Opens a URL in a new browser tab.</p>
+              <pre>https://github.com/riovicsusas/...</pre>
+            </div>
+
+            <h3 style="color:var(--navy); font-size:16px; margin-bottom:12px; border-bottom:1px solid var(--warm1); padding-bottom:6px; margin-top:32px;"><i class="ph ph-folder-open" style="margin-right:6px;"></i>Project Folders</h3>
+            <p style="margin-bottom:12px; color:var(--muted);">Your projects are grouped into a two-tier hierarchy:</p>
+            <ol style="padding-left:20px; margin-bottom:24px; color:var(--muted); line-height:1.9;">
+              <li><b>Folders:</b> If multiple projects have the exact same <b>Folder Name</b> (e.g. <i>Klaviyo Email Sequences</i>), they will be grouped into a single folder card on the main Projects page.</li>
+              <li><b>Deliverables:</b> Once the user clicks the folder, they will see all the individual project deliverables you assigned to that folder.</li>
+              <li><i>Tip:</i> To create a new folder, simply type a new name in the Folder Name field when creating a project. The system groups them automatically!</li>
+            </ol>
+            
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -340,8 +404,13 @@
           </select>
         </div>
       </div>
+      <div class="form-field">
+        <label>Folder Name</label>
+        <input type="text" id="editP_folder" placeholder="e.g. Shopify Store Buildout" />
+        <span class="hint">Deliverables with the same Folder Name appear grouped under one folder card.</span>
+      </div>
       <div class="form-row">
-        <div class="form-field"><label>Title</label><input type="text" id="editP_title" /></div>
+        <div class="form-field"><label>Deliverable Title</label><input type="text" id="editP_title" /></div>
         <div class="form-field"><label>Subtitle</label><input type="text" id="editP_subtitle" /></div>
       </div>
       <div class="form-field"><label>Short Description</label><textarea id="editP_short" style="min-height:50px;"></textarea></div>
@@ -517,18 +586,24 @@
     function addProject() {
       const id = document.getElementById('newP_id').value.trim();
       if(!id) return showToast('Project ID required', 'error');
+      const folder = document.getElementById('newP_folder').value.trim() || 'Other';
       
       const p = {
-        id, icon: document.getElementById('newP_icon').value.trim()||'ph-folder-open',
-        title: document.getElementById('newP_title').value.trim(), subtitle: document.getElementById('newP_subtitle').value.trim(),
-        short: document.getElementById('newP_short').value.trim(), overview: document.getElementById('newP_overview').value.trim(),
-        image: document.getElementById('newP_image').value.trim(), tags: document.getElementById('newP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
+        id,
+        folder,
+        folderIcon: document.getElementById('newP_icon').value.trim() || 'ph-folder-open',
+        icon: document.getElementById('newP_icon').value.trim() || 'ph-folder-open',
+        title: document.getElementById('newP_title').value.trim(),
+        subtitle: document.getElementById('newP_subtitle').value.trim(),
+        short: document.getElementById('newP_short').value.trim(),
+        overview: document.getElementById('newP_overview').value.trim(),
+        image: document.getElementById('newP_image').value.trim(),
+        tags: document.getElementById('newP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
         outcomes: getDynamicValues('newP_outcomes_container', true),
         steps: getDynamicValues('newP_steps_container', false)
       };
       
       const projs = getData('portfolio_projects', DEFAULT_PROJECTS); 
-      // check if ID already exists
       if(projs.find(x => x.id === id)) return showToast('Project ID must be unique', 'error');
       
       projs.push(p); setData('portfolio_projects', projs);
@@ -536,7 +611,7 @@
     }
     
     function clearProjectForm() { 
-      ['newP_id','newP_icon','newP_title','newP_subtitle','newP_short','newP_overview','newP_image','newP_tags'].forEach(i=>document.getElementById(i).value=''); 
+      ['newP_id','newP_icon','newP_folder','newP_title','newP_subtitle','newP_short','newP_overview','newP_image','newP_tags'].forEach(i=>document.getElementById(i).value=''); 
       document.getElementById('newP_outcomes_container').innerHTML = ''; addOutcomeField('newP_outcomes_container');
       document.getElementById('newP_steps_container').innerHTML = ''; addStepField('newP_steps_container');
     }
@@ -561,9 +636,13 @@
       ensureOption('editP_icon', p.icon);
       
       document.getElementById('editP_id').value=p.id;
-      document.getElementById('editP_icon').value=p.icon; document.getElementById('editP_title').value=p.title;
-      document.getElementById('editP_subtitle').value=p.subtitle; document.getElementById('editP_short').value=p.short;
-      document.getElementById('editP_overview').value=p.overview; document.getElementById('editP_image').value=p.image||'';
+      document.getElementById('editP_icon').value=p.icon;
+      document.getElementById('editP_folder').value=p.folder||'';
+      document.getElementById('editP_title').value=p.title;
+      document.getElementById('editP_subtitle').value=p.subtitle;
+      document.getElementById('editP_short').value=p.short;
+      document.getElementById('editP_overview').value=p.overview;
+      document.getElementById('editP_image').value=p.image||'';
       document.getElementById('editP_tags').value=(p.tags||[]).join(', ');
       
       const outCont = document.getElementById('editP_outcomes_container'); outCont.innerHTML = '';
@@ -585,14 +664,19 @@
       const idx = projs.findIndex(x=>x.id===origId);
       if(idx > -1) {
         const newId = document.getElementById('editP_id').value.trim();
-        // check ID uniqueness if changed
         if(newId !== origId && projs.find(x => x.id === newId)) return showToast('New Project ID already exists', 'error');
-        
+        const newIcon = document.getElementById('editP_icon').value;
         projs[idx] = {
-          id: newId, icon: document.getElementById('editP_icon').value,
-          title: document.getElementById('editP_title').value, subtitle: document.getElementById('editP_subtitle').value,
-          short: document.getElementById('editP_short').value, overview: document.getElementById('editP_overview').value,
-          image: document.getElementById('editP_image').value, tags: document.getElementById('editP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
+          id: newId,
+          folder: document.getElementById('editP_folder').value.trim() || 'Other',
+          folderIcon: newIcon,
+          icon: newIcon,
+          title: document.getElementById('editP_title').value,
+          subtitle: document.getElementById('editP_subtitle').value,
+          short: document.getElementById('editP_short').value,
+          overview: document.getElementById('editP_overview').value,
+          image: document.getElementById('editP_image').value,
+          tags: document.getElementById('editP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
           outcomes: getDynamicValues('editP_outcomes_container', true),
           steps: getDynamicValues('editP_steps_container', false)
         };
