@@ -489,13 +489,13 @@
     /* ─────────── DATA ─────────── */
 
     const DEFAULT_FEED = [
-      { id: 1, date: 'Sep 2026', text: 'Launched a full Shopify Flow automation suite for a fashion brand — reducing manual order processing by 80%.', tag: 'Shopify Flow', accent: false },
-      { id: 2, date: 'Aug 2026', text: 'Migrated 50,000+ product records using Matrixify with zero downtime for a multi-store merchant.',            tag: 'Matrixify',   accent: true },
-      { id: 3, date: 'Jul 2026', text: 'Built a Klaviyo email sequence that recovered 23% of abandoned carts within 48 hours of setup.',             tag: 'Klaviyo',     accent: true },
-      { id: 4, date: 'Jun 2026', text: 'Portfolio website goes live — you\'re looking at it!',                                                        tag: 'Personal',    accent: true },
+      { id: 1, date: 'Sep 2026', text: 'Launched a full Shopify Flow automation suite for a fashion brand — reducing manual order processing by 80%.', tag: 'Shopify Flow', accent: false, link: '', image: '' },
+      { id: 2, date: 'Aug 2026', text: 'Migrated 50,000+ product records using Matrixify with zero downtime for a multi-store merchant.',            tag: 'Matrixify',   accent: true, link: '', image: '' },
+      { id: 3, date: 'Jul 2026', text: 'Built a Klaviyo email sequence that recovered 23% of abandoned carts within 48 hours of setup.',             tag: 'Klaviyo',     accent: true, link: '', image: '' },
+      { id: 4, date: 'Jun 2026', text: 'Portfolio website goes live — you\'re looking at it!',                                                        tag: 'Personal',    accent: true, link: '', image: '' },
     ];
 
-    const PROJECTS = [
+    const DEFAULT_PROJECTS = [
       {
         id: 'shopify-buildout',
         icon: 'ph-storefront',
@@ -503,6 +503,7 @@
         subtitle: 'Store Setup & Configuration',
         short: 'Full store setup from scratch — theme customization, product listing, payment gateway, and launch-ready configuration.',
         overview: 'Designed and built a complete Shopify store from the ground up for a lifestyle brand entering the direct-to-consumer space. This included custom theme configuration, collection architecture, product catalog setup, payment gateway integration, and all pre-launch QA.',
+        image: '',
         tags: ['Shopify', 'Matrixify', 'DSers', 'Liquid', 'Theme Customization'],
         outcomes: [
           { value: '300+', label: 'Products Listed' },
@@ -525,6 +526,7 @@
         subtitle: 'Workflow Automation',
         short: 'Multi-step Shopify Flow workflows for order tagging, inventory alerts, and VIP customer segmentation.',
         overview: 'Built a comprehensive set of Shopify Flow automations that eliminated repetitive manual tasks across the operations team. Workflows included intelligent order tagging, low-stock alerts piped into Slack, VIP customer flagging, and risk-based fraud holds.',
+        image: '',
         tags: ['Shopify Flow', 'Slack', 'Klaviyo', 'Gorgias', 'Automation'],
         outcomes: [
           { value: '80%', label: 'Less Manual Work' },
@@ -547,6 +549,7 @@
         subtitle: 'Email Marketing & Automation',
         short: 'Abandoned cart, welcome series, and post-purchase flows that consistently recovered significant revenue.',
         overview: 'Designed, copywritten, and deployed a full lifecycle email program in Klaviyo covering every stage of the customer journey — from the welcome series for new subscribers to win-back campaigns for lapsed buyers. Each flow was A/B tested and optimized based on open and conversion rates.',
+        image: '',
         tags: ['Klaviyo', 'Shopify', 'A/B Testing', 'Email Design', 'Segmentation'],
         outcomes: [
           { value: '23%', label: 'Cart Recovery Rate' },
@@ -569,6 +572,7 @@
         subtitle: 'Data Migration',
         short: 'Migrated thousands of SKUs across stores using Matrixify with custom field mapping and zero data loss.',
         overview: 'Executed a large-scale product data migration between two Shopify stores for a merchant consolidating their brand portfolio. The process involved custom field mapping, metafield migration, image rehosting, and variant restructuring — all with zero customer-facing downtime.',
+        image: '',
         tags: ['Matrixify', 'Shopify', 'Data Mapping', 'Excel', 'QA'],
         outcomes: [
           { value: '50k+', label: 'SKUs Migrated' },
@@ -591,6 +595,7 @@
         subtitle: 'Customer Support Operations',
         short: 'Configured Gorgias macros, auto-responders, and Shopify integration for a streamlined support workflow.',
         overview: 'Configured Gorgias from scratch for a Shopify merchant with a high support volume. The setup covered full Shopify data integration, macro library creation, auto-responder rules, escalation routing, and Slack notifications for urgent tickets.',
+        image: '',
         tags: ['Gorgias', 'Shopify', 'Slack', 'Support Ops', 'Automation'],
         outcomes: [
           { value: '60%', label: 'Faster Response' },
@@ -613,6 +618,7 @@
         subtitle: 'Dropshipping Operations',
         short: 'DSers setup for supplier sync, bulk order processing, and automated fulfillment for a dropshipping business.',
         overview: 'Set up and optimized DSers for a dropshipping store running 100+ daily orders. This included supplier mapping, bulk order processing automation, tracking sync back to Shopify, and inventory management rules to prevent overselling.',
+        image: '',
         tags: ['DSers', 'Shopify', 'AliExpress', 'Fulfillment', 'Inventory'],
         outcomes: [
           { value: '100+', label: 'Orders/Day' },
@@ -630,6 +636,13 @@
       },
     ];
 
+    function getProjects() {
+      try {
+        const stored = localStorage.getItem('portfolio_projects');
+        return stored ? JSON.parse(stored) : DEFAULT_PROJECTS;
+      } catch { return DEFAULT_PROJECTS; }
+    }
+
     /* ─────────── FEED RENDERING ─────────── */
     function getFeed() {
       try {
@@ -642,31 +655,64 @@
       const feed = getFeed();
       const container = document.getElementById('homeFeed');
       if (!container) return;
-      container.innerHTML = feed.slice(0, 5).map(item => `
-        <div class="feed-item">
+      container.innerHTML = feed.slice(0, 5).map(item => {
+        let innerHTML = `
           <div class="feed-dot" style="background:${item.accent ? 'var(--warm2)' : 'var(--navy)'}"></div>
-          <div>
-            <p class="feed-date">${item.date}</p>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+              <p class="feed-date">${item.date}</p>
+              ${item.link ? `<i class="ph ph-arrow-up-right" style="color:var(--muted);font-size:12px;"></i>` : ''}
+            </div>
+            ${item.image ? `<img src="${item.image}" alt="Feed image" style="width:100%;height:100px;object-fit:cover;border-radius:10px;margin-bottom:8px;border:1px solid var(--warm1);">` : ''}
             <p class="feed-text">${item.text}</p>
             <span class="feed-tag">${item.tag}</span>
           </div>
-        </div>
-      `).join('');
+        `;
+        
+        if (item.link) {
+          // If the link starts with #page-, we handle it via our SPA switcher, otherwise normal href
+          if (item.link.startsWith('#page-')) {
+            const pageId = item.link.replace('#page-', '');
+            return `<a href="#" onclick="event.preventDefault(); switchPage('${pageId}')" class="feed-item" style="text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">${innerHTML}</a>`;
+          } else {
+            return `<a href="${item.link}" target="_blank" class="feed-item" style="text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">${innerHTML}</a>`;
+          }
+        } else {
+          return `<div class="feed-item">${innerHTML}</div>`;
+        }
+      }).join('');
     }
 
     /* ─────────── PROJECTS GRID RENDERING ─────────── */
     function renderProjects() {
+      const projects = getProjects();
+      
+      // Update Projects Page Grid
       const grid = document.getElementById('projectsGrid');
-      if (!grid) return;
-      grid.innerHTML = PROJECTS.map(p => `
-        <div class="project-card" onclick="openModal('${p.id}')">
-          <span class="view-details-badge">View Details</span>
-          <div class="project-card-icon"><i class="ph ${p.icon}"></i></div>
-          <h3>${p.title}</h3>
-          <p>${p.short}</p>
-          <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-        </div>
-      `).join('');
+      if (grid) {
+        grid.innerHTML = projects.map(p => `
+          <div class="project-card" onclick="openModal('${p.id}')">
+            <span class="view-details-badge">View Details</span>
+            ${p.image ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:14px;border:1px solid var(--warm1);">` : `<div class="project-card-icon"><i class="ph ${p.icon}"></i></div>`}
+            <h3>${p.title}</h3>
+            <p>${p.short}</p>
+            <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        `).join('');
+      }
+
+      // Update Home Page Top 3
+      const homeList = document.querySelector('.card-projects .project-list');
+      if (homeList) {
+        homeList.innerHTML = projects.slice(0, 3).map((p, idx) => `
+          <div class="project-item">
+            <i class="ph ${p.icon}" style="color:var(--navy);margin-right:8px;font-size:16px;"></i>
+            ${p.title}
+            <span class="project-num">0${idx + 1}</span>
+            <i class="ph ph-arrow-right"></i>
+          </div>
+        `).join('');
+      }
     }
 
     /* ─────────── BELT ─────────── */
@@ -695,9 +741,18 @@
 
     /* ─────────── MODAL ─────────── */
     function openModal(projectId) {
-      const p = PROJECTS.find(x => x.id === projectId);
+      const p = getProjects().find(x => x.id === projectId);
       if (!p) return;
-      document.getElementById('modalIcon').innerHTML    = `<i class="ph ${p.icon}"></i>`;
+      
+      // If project has an image, replace the icon box with the image in the modal header
+      if (p.image) {
+        document.getElementById('modalIcon').style.background = 'transparent';
+        document.getElementById('modalIcon').innerHTML = `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;border:1px solid var(--warm1);">`;
+      } else {
+        document.getElementById('modalIcon').style.background = 'rgba(6,0,112,0.08)';
+        document.getElementById('modalIcon').innerHTML = `<i class="ph ${p.icon}"></i>`;
+      }
+      
       document.getElementById('modalTitle').textContent    = p.title;
       document.getElementById('modalSubtitle').textContent = p.subtitle;
       document.getElementById('modalOverview').textContent = p.overview;
@@ -752,9 +807,10 @@
     renderFeed();
     renderProjects();
 
-    // Listen for updates from the admin panel (same-tab storage events don't fire, but cross-tab do)
+    // Listen for updates from the admin panel
     window.addEventListener('storage', e => {
       if (e.key === 'portfolio_feed') renderFeed();
+      if (e.key === 'portfolio_projects') renderProjects();
     });
   </script>
 </body>

@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Riovic Portfolio</title>
-  <!-- 🔒 This page is not linked anywhere on the public site. Access it at /admin.html -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -12,32 +11,13 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:  #060070;
-      --warm1: #C9C8BF;
-      --warm2: #BDBBB2;
-      --bg:    #F4F3EF;
-      --white: #FFFFFF;
-      --text:  #1a1a2e;
-      --muted: #6b6b7b;
-      --green: #16a34a;
-      --red:   #dc2626;
-      --card-r: 16px;
-    }
-
+    :root { --navy: #060070; --warm1: #C9C8BF; --warm2: #BDBBB2; --bg: #F4F3EF; --white: #FFFFFF; --text: #1a1a2e; --muted: #6b6b7b; --green: #16a34a; --red: #dc2626; --card-r: 16px; }
     html, body { height: 100%; }
     body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
-
+    
     /* ═══ LOGIN GATE ═══ */
-    #loginGate {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
-    }
-    .login-box {
-      background: var(--white); border-radius: 24px; padding: 48px 40px;
-      width: 100%; max-width: 380px; border: 1.5px solid var(--warm1);
-      box-shadow: 0 24px 64px rgba(6,0,112,0.08);
-    }
+    #loginGate { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .login-box { background: var(--white); border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 380px; border: 1.5px solid var(--warm1); box-shadow: 0 24px 64px rgba(6,0,112,0.08); }
     .login-logo { width: 52px; height: 52px; background: var(--navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; margin-bottom: 20px; }
     .login-box h1 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
     .login-box p  { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
@@ -48,31 +28,25 @@
     .login-btn { width: 100%; margin-top: 6px; padding: 13px; background: var(--navy); color: white; border: none; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
     .login-btn:hover { opacity: 0.85; }
     .login-error { color: var(--red); font-size: 12.5px; font-weight: 600; margin-top: 10px; display: none; text-align: center; }
-    .login-hint  { font-size: 11px; color: var(--warm2); text-align: center; margin-top: 20px; line-height: 1.5; }
 
     /* ═══ ADMIN APP ═══ */
     #adminApp { display: none; min-height: 100vh; }
-
-    /* Topbar */
-    .topbar {
-      background: var(--navy); padding: 0 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 62px; position: sticky; top: 0; z-index: 50;
-    }
+    .topbar { background: var(--navy); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 62px; position: sticky; top: 0; z-index: 50; }
     .topbar-brand { display: flex; align-items: center; gap: 12px; color: white; }
     .topbar-brand .tb-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .topbar-brand h1 { font-size: 15px; font-weight: 700; }
-    .topbar-brand p  { font-size: 11px; color: rgba(201,200,191,0.7); }
     .topbar-right { display: flex; align-items: center; gap: 12px; }
-    .topbar-badge { background: rgba(201,200,191,0.15); color: var(--warm1); font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-    .topbar-badge::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+    .topbar-tabs { display: flex; gap: 8px; margin-right: 16px; }
+    .tab-btn { background: transparent; color: rgba(255,255,255,0.6); border: none; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; padding: 6px 12px; cursor: pointer; border-radius: 6px; transition: 0.2s; }
+    .tab-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+    .tab-btn.active { background: rgba(255,255,255,0.2); color: white; }
     .logout-btn { background: rgba(255,255,255,0.12); color: white; border: none; border-radius: 8px; padding: 8px 14px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
     .logout-btn:hover { background: rgba(255,255,255,0.22); }
-
-    /* Content */
+    
     .admin-content { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
-
-    /* Section cards */
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+    
     .admin-card { background: var(--white); border-radius: var(--card-r); padding: 28px 28px 20px; border: 1.5px solid var(--warm1); margin-bottom: 24px; }
     .admin-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .admin-card-header-left { display: flex; align-items: center; gap: 12px; }
@@ -81,400 +55,600 @@
     .acl-text p  { font-size: 12px; color: var(--muted); }
     .count-badge { background: var(--bg); color: var(--navy); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--warm1); }
 
-    /* Add feed form */
+    /* FORMS */
     .add-form { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px dashed var(--warm2); }
     .add-form h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
     .form-field { margin-bottom: 12px; }
     .form-field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
-    .form-field input,
-    .form-field textarea,
-    .form-field select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--warm1); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+    .form-field input, .form-field textarea, .form-field select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--warm1); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
     .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--navy); }
     .form-field textarea { resize: vertical; min-height: 80px; }
-    .btn-row { display: flex; gap: 10px; margin-top: 4px; }
+    .hint { font-size: 10px; color: var(--muted); margin-top: 4px; display: block; }
+    
+    .btn-row { display: flex; gap: 10px; margin-top: 8px; }
     .btn-primary { padding: 10px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
     .btn-primary:hover { opacity: 0.85; }
     .btn-ghost  { padding: 10px 20px; background: transparent; color: var(--muted); border: 1.5px solid var(--warm1); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
     .btn-ghost:hover { background: var(--bg); }
-
-    /* Feed list */
-    .feed-list { display: flex; flex-direction: column; gap: 10px; }
-    .feed-list-item {
-      background: var(--bg); border-radius: 10px; padding: 14px 16px;
-      display: flex; align-items: flex-start; gap: 12px;
-      border: 1px solid transparent; transition: border-color 0.2s;
-    }
-    .feed-list-item:hover { border-color: var(--warm1); }
-    .fli-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--navy); margin-top: 5px; flex-shrink: 0; }
-    .fli-body { flex: 1; }
-    .fli-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .fli-date { font-size: 11px; font-weight: 700; color: var(--warm2); text-transform: uppercase; letter-spacing: 0.04em; }
-    .fli-tag  { background: rgba(6,0,112,0.08); color: var(--navy); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px; }
-    .fli-text { font-size: 13px; color: var(--text); line-height: 1.5; }
-    .fli-actions { display: flex; gap: 6px; flex-shrink: 0; }
-    .btn-icon { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.2s, color 0.2s; }
+    .btn-ghost-sm { padding: 6px 10px; font-size: 11px; border: 1px dashed var(--warm2); }
+    .btn-icon { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.2s, color 0.2s; flex-shrink: 0; }
     .btn-icon.edit   { background: rgba(6,0,112,0.07); color: var(--navy); }
     .btn-icon.edit:hover   { background: var(--navy); color: white; }
     .btn-icon.delete { background: rgba(220,38,38,0.07); color: var(--red); }
     .btn-icon.delete:hover { background: var(--red); color: white; }
 
-    .empty-state { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
-    .empty-state i { font-size: 32px; display: block; margin-bottom: 8px; color: var(--warm2); }
+    /* DATA LIST */
+    .data-list { display: flex; flex-direction: column; gap: 10px; }
+    .list-item { background: var(--bg); border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; border: 1px solid transparent; transition: border-color 0.2s; }
+    .list-item:hover { border-color: var(--warm1); }
+    .list-item-body { flex: 1; min-width: 0; }
+    
+    /* MODALS */
+    .overlay { position: fixed; inset: 0; background: rgba(10,10,30,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; overflow-y: auto; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .edit-box { background: var(--white); border-radius: 18px; padding: 32px; width: 100%; max-width: 640px; box-shadow: 0 24px 64px rgba(0,0,0,0.15); transform: scale(0.95); transition: transform 0.25s; margin: auto; max-height: 90vh; overflow-y: auto;}
+    .overlay.open .edit-box { transform: scale(1); }
+    .edit-box h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
 
-    /* Toast */
-    .toast {
-      position: fixed; bottom: 24px; right: 24px; z-index: 999;
-      background: var(--navy); color: white; padding: 12px 20px;
-      border-radius: 12px; font-size: 13px; font-weight: 600;
-      display: flex; align-items: center; gap: 10px;
-      transform: translateY(80px); opacity: 0;
-      transition: transform 0.3s, opacity 0.3s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    }
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; z-index: 999; background: var(--navy); color: white; padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px; transform: translateY(80px); opacity: 0; transition: transform 0.3s, opacity 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success i { color: #4ade80; }
     .toast.error   i { color: #f87171; }
 
-    /* Reset danger zone */
-    .danger-zone { border-color: rgba(220,38,38,0.2); }
-    .danger-zone .admin-card-header .acl-icon { background: rgba(220,38,38,0.08); color: var(--red); }
-    .danger-zone .acl-text h2 { color: var(--red); }
-    .btn-danger { padding: 10px 20px; background: var(--red); color: white; border: none; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
-    .btn-danger:hover { opacity: 0.85; }
-
-    /* Edit modal */
-    .edit-overlay { position: fixed; inset: 0; background: rgba(10,10,30,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-    .edit-overlay.open { opacity: 1; pointer-events: all; }
-    .edit-box { background: var(--white); border-radius: 18px; padding: 32px; width: 100%; max-width: 480px; box-shadow: 0 24px 64px rgba(0,0,0,0.15); transform: scale(0.95); transition: transform 0.25s; }
-    .edit-overlay.open .edit-box { transform: scale(1); }
-    .edit-box h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
-
-    @media (max-width: 600px) {
-      .admin-content { padding: 20px 14px 60px; }
-      .topbar { padding: 0 16px; }
-      .admin-card { padding: 20px 16px; }
-      .add-form { padding: 16px; }
-      .form-row { grid-template-columns: 1fr; }
-    }
+    pre { background: var(--bg); border: 1.5px solid var(--warm1); border-radius: 10px; padding: 16px; font-size: 12px; color: var(--text); overflow-x: auto; line-height: 1.6; font-family: monospace; }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════ LOGIN GATE ══════════════════════ -->
+  <!-- LOGIN GATE -->
   <div id="loginGate">
     <div class="login-box">
       <div class="login-logo"><i class="ph ph-lock-key"></i></div>
       <h1>Admin Panel</h1>
       <p>Portfolio management — private access only.</p>
-      <div class="login-field">
-        <label>Password</label>
-        <input type="password" id="pwInput" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()" />
-      </div>
-      <button class="login-btn" onclick="doLogin()">
-        <i class="ph ph-sign-in" style="margin-right:6px;font-size:16px;vertical-align:middle;"></i> Sign In
-      </button>
-      <p class="login-error" id="loginError"><i class="ph ph-warning-circle"></i> Incorrect password. Try again.</p>
-      <p class="login-hint">🔒 This URL is your private access point.<br>Don't share it publicly.</p>
+      <div class="login-field"><label>Password</label><input type="password" id="pwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()" /></div>
+      <button class="login-btn" onclick="doLogin()"><i class="ph ph-sign-in" style="margin-right:6px;"></i> Sign In</button>
+      <p class="login-error" id="loginError"><i class="ph ph-warning-circle"></i> Incorrect password.</p>
     </div>
   </div>
 
-  <!-- ══════════════════════ ADMIN APP ══════════════════════ -->
+  <!-- ADMIN APP -->
   <div id="adminApp">
-    <!-- Topbar -->
     <div class="topbar">
       <div class="topbar-brand">
         <div class="tb-icon"><i class="ph ph-gauge"></i></div>
-        <div>
-          <h1>Portfolio Admin</h1>
-          <p>Riovic Matthew G. Susas</p>
-        </div>
+        <div><h1>Portfolio Admin</h1></div>
       </div>
       <div class="topbar-right">
-        <div class="topbar-badge">Logged In</div>
-        <button class="logout-btn" onclick="doLogout()"><i class="ph ph-sign-out"></i> Logout</button>
+        <div class="topbar-tabs">
+          <button class="tab-btn active" onclick="switchTab('feed', this)"><i class="ph ph-newspaper" style="margin-right:4px;"></i> Feed</button>
+          <button class="tab-btn" onclick="switchTab('projects', this)"><i class="ph ph-folder-open" style="margin-right:4px;"></i> Projects</button>
+          <button class="tab-btn" onclick="switchTab('export', this)"><i class="ph ph-github-logo" style="margin-right:4px;"></i> Deploy</button>
+        </div>
+        <button class="logout-btn" onclick="doLogout()"><i class="ph ph-sign-out"></i></button>
       </div>
     </div>
 
     <div class="admin-content">
+      
+      <!-- ════════ FEED TAB ════════ -->
+      <div id="view-feed" class="view-section active">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-header-left">
+              <div class="acl-icon"><i class="ph ph-newspaper"></i></div>
+              <div class="acl-text"><h2>What's New Feed</h2><p>Manage the updates on your homepage.</p></div>
+            </div>
+            <span class="count-badge" id="feedCount">0 items</span>
+          </div>
 
-      <!-- ── What's New Feed Manager ── -->
-      <div class="admin-card">
-        <div class="admin-card-header">
-          <div class="admin-card-header-left">
-            <div class="acl-icon"><i class="ph ph-newspaper"></i></div>
-            <div class="acl-text">
-              <h2>What's New Feed</h2>
-              <p>Manage the updates that appear on your homepage.</p>
+          <div class="add-form">
+            <h3><i class="ph ph-plus-circle"></i> Add Update</h3>
+            <div class="form-row">
+              <div class="form-field"><label>Date</label><input type="text" id="newF_date" placeholder="e.g. Oct 2026" /></div>
+              <div class="form-field"><label>Tag</label><input type="text" id="newF_tag" placeholder="e.g. Shopify Flow" /></div>
+            </div>
+            <div class="form-field"><label>Update Text</label><textarea id="newF_text" placeholder="Describe the update..."></textarea></div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Link (Optional)</label>
+                <input type="text" id="newF_link" placeholder="https://... or #page-projects" />
+              </div>
+              <div class="form-field">
+                <label>Image URL (Optional)</label>
+                <input type="text" id="newF_image" placeholder="https://..." />
+              </div>
+            </div>
+            <div class="form-field"><label>Dot Style</label><select id="newF_accent"><option value="false">● Navy (primary)</option><option value="true">● Warm (secondary)</option></select></div>
+            <div class="btn-row"><button class="btn-primary" onclick="addFeedItem()"><i class="ph ph-plus"></i> Add Feed Item</button><button class="btn-ghost" onclick="clearFeedForm()">Clear</button></div>
+          </div>
+
+          <div class="data-list" id="feedList"></div>
+        </div>
+      </div>
+
+      <!-- ════════ PROJECTS TAB ════════ -->
+      <div id="view-projects" class="view-section">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-header-left">
+              <div class="acl-icon"><i class="ph ph-folder-open"></i></div>
+              <div class="acl-text"><h2>Projects</h2><p>Manage your portfolio projects.</p></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <label class="btn-ghost btn-ghost-sm" style="cursor:pointer; margin:0; display:flex; align-items:center; gap:4px;">
+                <i class="ph ph-file-csv"></i> Import CSV
+                <input type="file" accept=".csv" style="display:none;" onchange="importCsv(event)" />
+              </label>
+              <span class="count-badge" id="projectsCount">0 projects</span>
             </div>
           </div>
-          <span class="count-badge" id="feedCount">0 items</span>
-        </div>
 
-        <!-- Add form -->
-        <div class="add-form">
-          <h3><i class="ph ph-plus-circle"></i> Add New Update</h3>
-          <div class="form-row">
-            <div class="form-field">
-              <label>Date Label</label>
-              <input type="text" id="newDate" placeholder="e.g. Oct 2026" />
+          <div class="add-form">
+            <h3><i class="ph ph-plus-circle"></i> Add New Project</h3>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Project ID</label>
+                <select id="newP_id">
+                  <option value="" disabled selected>Select a Project ID</option>
+                  <option value="shopify-buildout">shopify-buildout</option>
+                  <option value="flow-automations">flow-automations</option>
+                  <option value="klaviyo-sequences">klaviyo-sequences</option>
+                  <option value="matrixify-migration">matrixify-migration</option>
+                  <option value="gorgias-setup">gorgias-setup</option>
+                  <option value="dsers-ops">dsers-ops</option>
+                  <option value="example-new-proj">example-new-proj</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Icon Class</label>
+                <select id="newP_icon">
+                  <option value="" disabled selected>Select an Icon</option>
+                  <option value="ph-storefront">ph-storefront (Store)</option>
+                  <option value="ph-lightning">ph-lightning (Automations)</option>
+                  <option value="ph-envelope-open">ph-envelope-open (Email)</option>
+                  <option value="ph-database">ph-database (Migration)</option>
+                  <option value="ph-headset">ph-headset (Support)</option>
+                  <option value="ph-package">ph-package (Fulfillment)</option>
+                  <option value="ph-star">ph-star (Feature)</option>
+                  <option value="ph-folder-open">ph-folder-open (Generic Project)</option>
+                  <option value="ph-chart-bar">ph-chart-bar (Analytics)</option>
+                </select>
+              </div>
             </div>
-            <div class="form-field">
-              <label>Tag</label>
-              <input type="text" id="newTag" placeholder="e.g. Shopify Flow" />
+            <div class="form-row">
+              <div class="form-field"><label>Title</label><input type="text" id="newP_title" placeholder="e.g. Shopify Store Buildout" /></div>
+              <div class="form-field"><label>Subtitle</label><input type="text" id="newP_subtitle" placeholder="e.g. Store Setup" /></div>
+            </div>
+            <div class="form-field"><label>Short Description (Card)</label><textarea id="newP_short" style="min-height:50px;"></textarea></div>
+            <div class="form-field"><label>Full Overview (Modal)</label><textarea id="newP_overview"></textarea></div>
+            
+            <div class="form-row">
+              <div class="form-field"><label>Image URL (Optional)</label><input type="text" id="newP_image" placeholder="https://..." /></div>
+              <div class="form-field"><label>Tags (Comma separated)</label><input type="text" id="newP_tags" placeholder="Shopify, Matrixify, Klaviyo" /></div>
+            </div>
+            
+            <!-- DYNAMIC OUTCOMES -->
+            <hr style="border:0;border-top:1px solid var(--warm1);margin:16px 0;">
+            <p style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;">Outcomes (Optional metrics)</p>
+            <div id="newP_outcomes_container"></div>
+            <button class="btn-ghost btn-ghost-sm" onclick="addOutcomeField('newP_outcomes_container')"><i class="ph ph-plus"></i> Add Outcome</button>
+            
+            <!-- DYNAMIC STEPS -->
+            <hr style="border:0;border-top:1px solid var(--warm1);margin:16px 0;">
+            <p style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;">How It Was Done Steps (Optional)</p>
+            <div id="newP_steps_container"></div>
+            <button class="btn-ghost btn-ghost-sm" onclick="addStepField('newP_steps_container')"><i class="ph ph-plus"></i> Add Step block</button>
+
+            <div class="btn-row" style="margin-top:20px;"><button class="btn-primary" onclick="addProject()"><i class="ph ph-plus"></i> Save Project</button><button class="btn-ghost" onclick="clearProjectForm()">Clear</button></div>
+          </div>
+
+          <div class="data-list" id="projectsList"></div>
+        </div>
+      </div>
+
+      <!-- ════════ EXPORT TAB ════════ -->
+      <div id="view-export" class="view-section">
+        <div class="admin-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+            <div class="acl-icon"><i class="ph ph-eye"></i></div>
+            <div class="acl-text"><h2>Preview Locally</h2><p>Changes are saved to your browser automatically.</p></div>
+            <a href="index.html" target="_blank" class="btn-primary" style="margin-left:auto;text-decoration:none;"><i class="ph ph-arrow-square-out"></i> Open Site</a>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--warm1);margin:0 0 24px;">
+          
+          <div class="admin-card-header">
+            <div class="admin-card-header-left">
+              <div class="acl-icon"><i class="ph ph-github-logo"></i></div>
+              <div class="acl-text"><h2>Export for GitHub</h2><p>Generate the code to paste into <code style="background:var(--bg);padding:2px 6px;border-radius:4px;">index.html</code></p></div>
+            </div>
+            <button class="btn-primary" onclick="generateExport()"><i class="ph ph-export"></i> Generate Code</button>
+          </div>
+          
+          <div id="exportBlock" style="display:none;">
+            <div style="position:relative;">
+              <pre id="exportCode"></pre>
+              <button onclick="copyExport()" style="position:absolute;top:10px;right:10px;" class="btn-primary" id="copyBtn"><i class="ph ph-copy"></i> Copy</button>
+            </div>
+            <div style="margin-top:14px;background:rgba(6,0,112,0.05);border-radius:10px;padding:14px 16px;">
+              <p style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:8px;"><i class="ph ph-steps" style="margin-right:4px;"></i>Next steps:</p>
+              <ol style="font-size:12px;color:var(--muted);line-height:1.9;padding-left:18px;">
+                <li>Open <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">index.html</code> in a text editor.</li>
+                <li>Find the <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">const DEFAULT_FEED = [...]</code> and <code style="background:var(--bg);padding:1px 5px;border-radius:3px;">const DEFAULT_PROJECTS = [...]</code> arrays.</li>
+                <li>Replace both arrays entirely with the copied code above.</li>
+                <li>Save, commit, and push to GitHub.</li>
+              </ol>
             </div>
           </div>
-          <div class="form-field">
-            <label>Update Text</label>
-            <textarea id="newText" placeholder="Describe the update, win, or announcement..."></textarea>
-          </div>
-          <div class="form-field">
-            <label>Dot Style</label>
-            <select id="newAccent">
-              <option value="false">● Navy (primary / latest)</option>
-              <option value="true">● Warm (secondary)</option>
-            </select>
-          </div>
-          <div class="btn-row">
-            <button class="btn-primary" onclick="addFeedItem()"><i class="ph ph-plus"></i> Add to Feed</button>
-            <button class="btn-ghost"  onclick="clearAddForm()">Clear</button>
-          </div>
-        </div>
-
-        <!-- Feed list -->
-        <div class="feed-list" id="feedList"></div>
-      </div>
-
-      <!-- ── Preview link ── -->
-      <div class="admin-card" style="padding:20px 28px;">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <div class="acl-icon"><i class="ph ph-eye"></i></div>
-          <div class="acl-text">
-            <h2 style="font-size:14px;">View Your Portfolio</h2>
-            <p>Changes are saved instantly and appear on the public site.</p>
-          </div>
-          <a href="index.html" target="_blank" class="btn-primary" style="margin-left:auto;text-decoration:none;">
-            <i class="ph ph-arrow-square-out"></i> Open Site
-          </a>
         </div>
       </div>
 
-      <!-- ── Danger Zone ── -->
-      <div class="admin-card danger-zone">
-        <div class="admin-card-header">
-          <div class="admin-card-header-left">
-            <div class="acl-icon"><i class="ph ph-trash"></i></div>
-            <div class="acl-text">
-              <h2>Reset Feed</h2>
-              <p>Restore the default feed items. This cannot be undone.</p>
-            </div>
-          </div>
-          <button class="btn-danger" onclick="resetFeed()"><i class="ph ph-arrow-counter-clockwise"></i> Reset to Defaults</button>
-        </div>
-      </div>
-
-    </div><!-- /admin-content -->
-  </div><!-- /adminApp -->
-
-  <!-- ══════════════════════ EDIT MODAL ══════════════════════ -->
-  <div class="edit-overlay" id="editOverlay" onclick="closeEditOnOverlay(event)">
-    <div class="edit-box">
-      <h3><i class="ph ph-pencil-simple" style="margin-right:6px;"></i>Edit Update</h3>
-      <input type="hidden" id="editId" />
-      <div class="form-row">
-        <div class="form-field">
-          <label>Date Label</label>
-          <input type="text" id="editDate" placeholder="e.g. Oct 2026" />
-        </div>
-        <div class="form-field">
-          <label>Tag</label>
-          <input type="text" id="editTag" placeholder="e.g. Shopify Flow" />
-        </div>
-      </div>
-      <div class="form-field">
-        <label>Update Text</label>
-        <textarea id="editText" style="min-height:100px;"></textarea>
-      </div>
-      <div class="form-field">
-        <label>Dot Style</label>
-        <select id="editAccent">
-          <option value="false">● Navy (primary / latest)</option>
-          <option value="true">● Warm (secondary)</option>
-        </select>
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary" onclick="saveEdit()"><i class="ph ph-floppy-disk"></i> Save Changes</button>
-        <button class="btn-ghost"   onclick="closeEdit()">Cancel</button>
-      </div>
     </div>
   </div>
 
-  <!-- Toast -->
-  <div class="toast" id="toast">
-    <i class="ph ph-check-circle"></i>
-    <span id="toastMsg">Saved!</span>
+  <!-- ════════ FEED EDIT MODAL ════════ -->
+  <div class="overlay" id="editFeedOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="edit-box">
+      <h3><i class="ph ph-pencil-simple" style="margin-right:6px;"></i>Edit Update</h3>
+      <input type="hidden" id="editF_id" />
+      <div class="form-row">
+        <div class="form-field"><label>Date Label</label><input type="text" id="editF_date" /></div>
+        <div class="form-field"><label>Tag</label><input type="text" id="editF_tag" /></div>
+      </div>
+      <div class="form-field"><label>Update Text</label><textarea id="editF_text"></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label>Link (Optional)</label><input type="text" id="editF_link" /></div>
+        <div class="form-field"><label>Image URL (Optional)</label><input type="text" id="editF_image" /></div>
+      </div>
+      <div class="form-field"><label>Dot Style</label><select id="editF_accent"><option value="false">● Navy</option><option value="true">● Warm</option></select></div>
+      <div class="btn-row"><button class="btn-primary" onclick="saveFeedEdit()"><i class="ph ph-floppy-disk"></i> Save</button><button class="btn-ghost" onclick="document.getElementById('editFeedOverlay').classList.remove('open')">Cancel</button></div>
+    </div>
   </div>
 
-  <script>
-    /* ══════════════════════ CONFIG ══════════════════════
-       Change ADMIN_PASSWORD below to your chosen password.
-       This file is hidden by URL obscurity (not linked publicly).
-    ══════════════════════════════════════════════════════ */
-    const ADMIN_PASSWORD = 'riovic2026';
+  <!-- ════════ PROJECT EDIT MODAL ════════ -->
+  <div class="overlay" id="editProjOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="edit-box">
+      <h3><i class="ph ph-pencil-simple" style="margin-right:6px;"></i>Edit Project</h3>
+      <input type="hidden" id="editP_id_orig" />
+      <div class="form-row">
+        <div class="form-field">
+          <label>Project ID</label>
+          <select id="editP_id">
+            <option value="shopify-buildout">shopify-buildout</option>
+            <option value="flow-automations">flow-automations</option>
+            <option value="klaviyo-sequences">klaviyo-sequences</option>
+            <option value="matrixify-migration">matrixify-migration</option>
+            <option value="gorgias-setup">gorgias-setup</option>
+            <option value="dsers-ops">dsers-ops</option>
+            <option value="example-new-proj">example-new-proj</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Icon Class</label>
+          <select id="editP_icon">
+            <option value="ph-storefront">ph-storefront (Store)</option>
+            <option value="ph-lightning">ph-lightning (Automations)</option>
+            <option value="ph-envelope-open">ph-envelope-open (Email)</option>
+            <option value="ph-database">ph-database (Migration)</option>
+            <option value="ph-headset">ph-headset (Support)</option>
+            <option value="ph-package">ph-package (Fulfillment)</option>
+            <option value="ph-star">ph-star (Feature)</option>
+            <option value="ph-folder-open">ph-folder-open (Generic Project)</option>
+            <option value="ph-chart-bar">ph-chart-bar (Analytics)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Title</label><input type="text" id="editP_title" /></div>
+        <div class="form-field"><label>Subtitle</label><input type="text" id="editP_subtitle" /></div>
+      </div>
+      <div class="form-field"><label>Short Description</label><textarea id="editP_short" style="min-height:50px;"></textarea></div>
+      <div class="form-field"><label>Overview</label><textarea id="editP_overview"></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label>Image URL</label><input type="text" id="editP_image" /></div>
+        <div class="form-field"><label>Tags (Comma separated)</label><input type="text" id="editP_tags" /></div>
+      </div>
+      
+      <!-- DYNAMIC OUTCOMES EDIT -->
+      <hr style="border:0;border-top:1px solid var(--warm1);margin:16px 0;">
+      <p style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;">Outcomes</p>
+      <div id="editP_outcomes_container"></div>
+      <button class="btn-ghost btn-ghost-sm" onclick="addOutcomeField('editP_outcomes_container')"><i class="ph ph-plus"></i> Add Outcome</button>
+      
+      <!-- DYNAMIC STEPS EDIT -->
+      <hr style="border:0;border-top:1px solid var(--warm1);margin:16px 0;">
+      <p style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;">Steps</p>
+      <div id="editP_steps_container"></div>
+      <button class="btn-ghost btn-ghost-sm" onclick="addStepField('editP_steps_container')"><i class="ph ph-plus"></i> Add Step block</button>
 
+      <div class="btn-row" style="margin-top:20px;"><button class="btn-primary" onclick="saveProjEdit()"><i class="ph ph-floppy-disk"></i> Save</button><button class="btn-ghost" onclick="document.getElementById('editProjOverlay').classList.remove('open')">Cancel</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><i class="ph ph-check-circle"></i><span id="toastMsg">Saved!</span></div>
+
+  <script>
+    const ADMIN_PASSWORD = 'riovic2026';
+    
+    // DEFAULT DATA
     const DEFAULT_FEED = [
-      { id: 1, date: 'Sep 2026', text: 'Launched a full Shopify Flow automation suite for a fashion brand — reducing manual order processing by 80%.', tag: 'Shopify Flow', accent: false },
-      { id: 2, date: 'Aug 2026', text: 'Migrated 50,000+ product records using Matrixify with zero downtime for a multi-store merchant.',             tag: 'Matrixify',   accent: true  },
-      { id: 3, date: 'Jul 2026', text: 'Built a Klaviyo email sequence that recovered 23% of abandoned carts within 48 hours of setup.',              tag: 'Klaviyo',     accent: true  },
-      { id: 4, date: 'Jun 2026', text: 'Portfolio website goes live — you\'re looking at it!',                                                         tag: 'Personal',    accent: true  },
+      { id: 1, date: 'Sep 2026', text: 'Launched a full Shopify Flow automation suite for a fashion brand — reducing manual order processing by 80%.', tag: 'Shopify Flow', accent: false, link: '', image: '' },
+      { id: 2, date: 'Aug 2026', text: 'Migrated 50,000+ product records using Matrixify with zero downtime for a multi-store merchant.', tag: 'Matrixify', accent: true, link: '', image: '' },
+      { id: 3, date: 'Jul 2026', text: 'Built a Klaviyo email sequence that recovered 23% of abandoned carts within 48 hours of setup.', tag: 'Klaviyo', accent: true, link: '', image: '' },
+      { id: 4, date: 'Jun 2026', text: 'Portfolio website goes live — you\'re looking at it!', tag: 'Personal', accent: true, link: '', image: '' },
+    ];
+    const DEFAULT_PROJECTS = [
+      { id: 'shopify-buildout', icon: 'ph-storefront', title: 'Shopify Store Buildout', subtitle: 'Store Setup & Configuration', short: 'Full store setup from scratch — theme customization, product listing, payment gateway...', overview: 'Designed and built a complete Shopify store...', image: '', tags: ['Shopify', 'Matrixify'], outcomes: [{value:'300+',label:'Products'}], steps: ['Audited brand requirements.','Configured Shopify theme.'] }
     ];
 
-    /* ─────────── AUTH ─────────── */
+    /* ─── AUTH & TABS ─── */
     function doLogin() {
-      const pw = document.getElementById('pwInput').value;
-      if (pw === ADMIN_PASSWORD) {
-        document.getElementById('loginGate').style.display = 'none';
-        document.getElementById('adminApp').style.display  = 'block';
-        renderFeedList();
-      } else {
-        const err = document.getElementById('loginError');
-        err.style.display = 'block';
-        document.getElementById('pwInput').value = '';
-        document.getElementById('pwInput').focus();
-        setTimeout(() => { err.style.display = 'none'; }, 3000);
-      }
+      if(document.getElementById('pwInput').value === ADMIN_PASSWORD) {
+        document.getElementById('loginGate').style.display = 'none'; document.getElementById('adminApp').style.display = 'block';
+        renderFeedList(); renderProjectsList();
+      } else { showToast('Incorrect password', 'error'); }
     }
-    function doLogout() {
-      document.getElementById('loginGate').style.display = 'flex';
-      document.getElementById('adminApp').style.display  = 'none';
-      document.getElementById('pwInput').value = '';
+    function doLogout() { location.reload(); }
+    
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.getElementById('view-' + tab).classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
     }
 
-    /* ─────────── STORAGE HELPERS ─────────── */
-    function getFeed() {
-      try {
-        const s = localStorage.getItem('portfolio_feed');
-        return s ? JSON.parse(s) : [...DEFAULT_FEED];
-      } catch { return [...DEFAULT_FEED]; }
-    }
-    function saveFeed(feed) {
-      localStorage.setItem('portfolio_feed', JSON.stringify(feed));
-    }
-    function nextId(feed) {
-      return feed.length ? Math.max(...feed.map(f => f.id)) + 1 : 1;
-    }
+    /* ─── DATA ACCESS ─── */
+    function getData(key, def) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : [...def]; } catch { return [...def]; } }
+    function setData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
-    /* ─────────── RENDER LIST ─────────── */
+    /* ─── DYNAMIC FIELDS GENERATORS ─── */
+    function addOutcomeField(containerId, val = '', lbl = '') {
+      const container = document.getElementById(containerId);
+      const row = document.createElement('div');
+      row.className = 'form-row'; row.style.marginBottom = '8px';
+      row.innerHTML = `
+        <div class="form-field" style="margin:0;"><input type="text" placeholder="Value (e.g. 300+)" class="out-val" value="${val}" /></div>
+        <div class="form-field" style="margin:0; display:flex; gap:8px;">
+          <input type="text" placeholder="Label (e.g. Products)" class="out-lbl" value="${lbl}" style="flex:1;" />
+          <button type="button" class="btn-icon delete" onclick="this.parentElement.parentElement.remove()" style="width:38px;height:38px;"><i class="ph ph-trash"></i></button>
+        </div>
+      `;
+      container.appendChild(row);
+    }
+    function addStepField(containerId, text = '') {
+      const container = document.getElementById(containerId);
+      const row = document.createElement('div');
+      row.style.display = 'flex'; row.style.gap = '8px'; row.style.marginBottom = '8px';
+      row.innerHTML = `
+        <textarea class="step-text" style="min-height:50px; flex:1; font-family:'Poppins', sans-serif; padding:10px 12px; border:1.5px solid var(--warm1); border-radius:8px;" placeholder="Describe this step...">${text}</textarea>
+        <button type="button" class="btn-icon delete" onclick="this.parentElement.remove()" style="width:38px;height:38px;flex-shrink:0;"><i class="ph ph-trash"></i></button>
+      `;
+      container.appendChild(row);
+    }
+    
+    // Init empty fields for "Add Project"
+    addOutcomeField('newP_outcomes_container');
+    addStepField('newP_steps_container');
+
+    /* ─── FEED LOGIC ─── */
     function renderFeedList() {
-      const feed = getFeed();
-      const list = document.getElementById('feedList');
-      document.getElementById('feedCount').textContent = `${feed.length} item${feed.length !== 1 ? 's' : ''}`;
-      if (!feed.length) {
-        list.innerHTML = `<div class="empty-state"><i class="ph ph-tray"></i>No feed items yet. Add one above!</div>`;
-        return;
-      }
-      list.innerHTML = feed.map((item, idx) => `
-        <div class="feed-list-item" id="fli-${item.id}">
-          <div class="fli-dot" style="background:${item.accent ? 'var(--warm2)' : 'var(--navy)'}"></div>
-          <div class="fli-body">
-            <div class="fli-meta">
-              <span class="fli-date">${item.date}</span>
-              <span class="fli-tag">${item.tag}</span>
-              <span style="font-size:10px;color:var(--warm2);margin-left:auto;">#${idx + 1}</span>
-            </div>
-            <p class="fli-text">${item.text}</p>
+      const feed = getData('portfolio_feed', DEFAULT_FEED);
+      document.getElementById('feedCount').textContent = feed.length + ' items';
+      document.getElementById('feedList').innerHTML = feed.map(item => `
+        <div class="list-item">
+          <div class="list-item-body">
+            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px;">${item.date} &bull; ${item.tag} ${item.link ? '🔗' : ''} ${item.image ? '🖼️' : ''}</div>
+            <div style="font-size:13px;">${item.text}</div>
           </div>
-          <div class="fli-actions">
-            <button class="btn-icon edit"   onclick="openEdit(${item.id})" title="Edit"><i class="ph ph-pencil-simple"></i></button>
-            <button class="btn-icon delete" onclick="deleteItem(${item.id})" title="Delete"><i class="ph ph-trash"></i></button>
-          </div>
+          <button class="btn-icon edit" onclick="openFeedEdit(${item.id})"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-icon delete" onclick="delFeed(${item.id})"><i class="ph ph-trash"></i></button>
         </div>
       `).join('');
     }
-
-    /* ─────────── ADD ─────────── */
     function addFeedItem() {
-      const date   = document.getElementById('newDate').value.trim();
-      const tag    = document.getElementById('newTag').value.trim();
-      const text   = document.getElementById('newText').value.trim();
-      const accent = document.getElementById('newAccent').value === 'true';
-
-      if (!date || !text || !tag) {
-        showToast('Please fill in all fields.', 'error');
-        return;
+      const f = {
+        id: Date.now(),
+        date: document.getElementById('newF_date').value.trim(), tag: document.getElementById('newF_tag').value.trim(),
+        text: document.getElementById('newF_text').value.trim(), link: document.getElementById('newF_link').value.trim(),
+        image: document.getElementById('newF_image').value.trim(), accent: document.getElementById('newF_accent').value === 'true'
+      };
+      if(!f.date||!f.text) return showToast('Date and Text required', 'error');
+      const feed = getData('portfolio_feed', DEFAULT_FEED); feed.unshift(f); setData('portfolio_feed', feed);
+      renderFeedList(); clearFeedForm(); showToast('Added to feed');
+    }
+    function clearFeedForm() { ['newF_date','newF_tag','newF_text','newF_link','newF_image'].forEach(i => document.getElementById(i).value = ''); }
+    function delFeed(id) { if(confirm('Delete?')){ const feed = getData('portfolio_feed', DEFAULT_FEED).filter(f=>f.id!==id); setData('portfolio_feed', feed); renderFeedList(); } }
+    
+    function openFeedEdit(id) {
+      const f = getData('portfolio_feed', DEFAULT_FEED).find(x=>x.id===id);
+      if(!f) return;
+      document.getElementById('editF_id').value=f.id; document.getElementById('editF_date').value=f.date;
+      document.getElementById('editF_tag').value=f.tag; document.getElementById('editF_text').value=f.text;
+      document.getElementById('editF_link').value=f.link||''; document.getElementById('editF_image').value=f.image||'';
+      document.getElementById('editF_accent').value=String(f.accent); document.getElementById('editFeedOverlay').classList.add('open');
+    }
+    function saveFeedEdit() {
+      const feed = getData('portfolio_feed', DEFAULT_FEED);
+      const id = parseInt(document.getElementById('editF_id').value);
+      const index = feed.findIndex(f=>f.id===id);
+      if(index > -1) {
+        feed[index] = { ...feed[index], date: document.getElementById('editF_date').value.trim(), tag: document.getElementById('editF_tag').value.trim(), text: document.getElementById('editF_text').value.trim(), link: document.getElementById('editF_link').value.trim(), image: document.getElementById('editF_image').value.trim(), accent: document.getElementById('editF_accent').value === 'true' };
+        setData('portfolio_feed', feed); renderFeedList(); document.getElementById('editFeedOverlay').classList.remove('open'); showToast('Saved');
       }
-      const feed = getFeed();
-      feed.unshift({ id: nextId(feed), date, text, tag, accent });
-      saveFeed(feed);
-      renderFeedList();
-      clearAddForm();
-      showToast('Update added to feed!', 'success');
     }
 
-    function clearAddForm() {
-      ['newDate','newTag','newText'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('newAccent').value = 'false';
+    /* ─── PROJECTS LOGIC ─── */
+    function renderProjectsList() {
+      const projs = getData('portfolio_projects', DEFAULT_PROJECTS);
+      document.getElementById('projectsCount').textContent = projs.length + ' projects';
+      document.getElementById('projectsList').innerHTML = projs.map(p => `
+        <div class="list-item">
+          ${p.image ? `<img src="${p.image}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">` : `<div style="width:40px;height:40px;border-radius:8px;background:var(--warm1);display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="ph ${p.icon}"></i></div>`}
+          <div class="list-item-body">
+            <div style="font-size:13px;font-weight:700;color:var(--navy);">${p.title}</div>
+            <div style="font-size:11px;color:var(--muted);">${p.id}</div>
+          </div>
+          <button class="btn-icon edit" onclick="openProjEdit('${p.id}')"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-icon delete" onclick="delProj('${p.id}')"><i class="ph ph-trash"></i></button>
+        </div>
+      `).join('');
+    }
+    
+    function getDynamicValues(containerId, isOutcome) {
+      const container = document.getElementById(containerId);
+      const results = [];
+      if (isOutcome) {
+        container.querySelectorAll('.form-row').forEach(row => {
+          const v = row.querySelector('.out-val').value.trim();
+          const l = row.querySelector('.out-lbl').value.trim();
+          if (v || l) results.push({ value: v, label: l });
+        });
+      } else {
+        container.querySelectorAll('.step-text').forEach(ta => {
+          const s = ta.value.trim();
+          if (s) results.push(s);
+        });
+      }
+      return results;
     }
 
-    /* ─────────── DELETE ─────────── */
-    function deleteItem(id) {
-      if (!confirm('Delete this feed item? This cannot be undone.')) return;
-      const feed = getFeed().filter(f => f.id !== id);
-      saveFeed(feed);
-      renderFeedList();
-      showToast('Item deleted.', 'success');
+    function addProject() {
+      const id = document.getElementById('newP_id').value.trim();
+      if(!id) return showToast('Project ID required', 'error');
+      
+      const p = {
+        id, icon: document.getElementById('newP_icon').value.trim()||'ph-folder-open',
+        title: document.getElementById('newP_title').value.trim(), subtitle: document.getElementById('newP_subtitle').value.trim(),
+        short: document.getElementById('newP_short').value.trim(), overview: document.getElementById('newP_overview').value.trim(),
+        image: document.getElementById('newP_image').value.trim(), tags: document.getElementById('newP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
+        outcomes: getDynamicValues('newP_outcomes_container', true),
+        steps: getDynamicValues('newP_steps_container', false)
+      };
+      
+      const projs = getData('portfolio_projects', DEFAULT_PROJECTS); 
+      // check if ID already exists
+      if(projs.find(x => x.id === id)) return showToast('Project ID must be unique', 'error');
+      
+      projs.push(p); setData('portfolio_projects', projs);
+      renderProjectsList(); clearProjectForm(); showToast('Project added');
+    }
+    
+    function clearProjectForm() { 
+      ['newP_id','newP_icon','newP_title','newP_subtitle','newP_short','newP_overview','newP_image','newP_tags'].forEach(i=>document.getElementById(i).value=''); 
+      document.getElementById('newP_outcomes_container').innerHTML = ''; addOutcomeField('newP_outcomes_container');
+      document.getElementById('newP_steps_container').innerHTML = ''; addStepField('newP_steps_container');
+    }
+    
+    function delProj(id) { if(confirm('Delete this project?')){ const p = getData('portfolio_projects', DEFAULT_PROJECTS).filter(x=>x.id!==id); setData('portfolio_projects', p); renderProjectsList(); } }
+    
+    function ensureOption(selectId, value) {
+      const select = document.getElementById(selectId);
+      if(!Array.from(select.options).some(o => o.value === value)) {
+        const opt = document.createElement('option');
+        opt.value = value; opt.text = value + ' (Imported/Custom)';
+        select.appendChild(opt);
+      }
     }
 
-    /* ─────────── EDIT ─────────── */
-    function openEdit(id) {
-      const item = getFeed().find(f => f.id === id);
-      if (!item) return;
-      document.getElementById('editId').value     = id;
-      document.getElementById('editDate').value   = item.date;
-      document.getElementById('editTag').value    = item.tag;
-      document.getElementById('editText').value   = item.text;
-      document.getElementById('editAccent').value = String(item.accent);
-      document.getElementById('editOverlay').classList.add('open');
+    function openProjEdit(id) {
+      const p = getData('portfolio_projects', DEFAULT_PROJECTS).find(x=>x.id===id);
+      if(!p) return;
+      document.getElementById('editP_id_orig').value=p.id; 
+      
+      ensureOption('editP_id', p.id);
+      ensureOption('editP_icon', p.icon);
+      
+      document.getElementById('editP_id').value=p.id;
+      document.getElementById('editP_icon').value=p.icon; document.getElementById('editP_title').value=p.title;
+      document.getElementById('editP_subtitle').value=p.subtitle; document.getElementById('editP_short').value=p.short;
+      document.getElementById('editP_overview').value=p.overview; document.getElementById('editP_image').value=p.image||'';
+      document.getElementById('editP_tags').value=(p.tags||[]).join(', ');
+      
+      const outCont = document.getElementById('editP_outcomes_container'); outCont.innerHTML = '';
+      if(p.outcomes && p.outcomes.length > 0) {
+        p.outcomes.forEach(o => addOutcomeField('editP_outcomes_container', o.value, o.label));
+      } else { addOutcomeField('editP_outcomes_container'); }
+      
+      const stepCont = document.getElementById('editP_steps_container'); stepCont.innerHTML = '';
+      if(p.steps && p.steps.length > 0) {
+        p.steps.forEach(s => addStepField('editP_steps_container', s));
+      } else { addStepField('editP_steps_container'); }
+      
+      document.getElementById('editProjOverlay').classList.add('open');
     }
-    function closeEdit() {
-      document.getElementById('editOverlay').classList.remove('open');
+    
+    function saveProjEdit() {
+      const origId = document.getElementById('editP_id_orig').value;
+      const projs = getData('portfolio_projects', DEFAULT_PROJECTS);
+      const idx = projs.findIndex(x=>x.id===origId);
+      if(idx > -1) {
+        const newId = document.getElementById('editP_id').value.trim();
+        // check ID uniqueness if changed
+        if(newId !== origId && projs.find(x => x.id === newId)) return showToast('New Project ID already exists', 'error');
+        
+        projs[idx] = {
+          id: newId, icon: document.getElementById('editP_icon').value,
+          title: document.getElementById('editP_title').value, subtitle: document.getElementById('editP_subtitle').value,
+          short: document.getElementById('editP_short').value, overview: document.getElementById('editP_overview').value,
+          image: document.getElementById('editP_image').value, tags: document.getElementById('editP_tags').value.split(',').map(s=>s.trim()).filter(s=>s),
+          outcomes: getDynamicValues('editP_outcomes_container', true),
+          steps: getDynamicValues('editP_steps_container', false)
+        };
+        setData('portfolio_projects', projs); renderProjectsList(); document.getElementById('editProjOverlay').classList.remove('open'); showToast('Saved');
+      }
     }
-    function closeEditOnOverlay(e) {
-      if (e.target === document.getElementById('editOverlay')) closeEdit();
-    }
-    function saveEdit() {
-      const id     = parseInt(document.getElementById('editId').value);
-      const date   = document.getElementById('editDate').value.trim();
-      const tag    = document.getElementById('editTag').value.trim();
-      const text   = document.getElementById('editText').value.trim();
-      const accent = document.getElementById('editAccent').value === 'true';
-      if (!date || !text || !tag) { showToast('All fields are required.', 'error'); return; }
-      const feed = getFeed().map(f => f.id === id ? { ...f, date, tag, text, accent } : f);
-      saveFeed(feed);
-      renderFeedList();
-      closeEdit();
-      showToast('Changes saved!', 'success');
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEdit(); });
 
-    /* ─────────── RESET ─────────── */
-    function resetFeed() {
-      if (!confirm('This will replace all your feed items with the original defaults. Continue?')) return;
-      saveFeed([...DEFAULT_FEED]);
-      renderFeedList();
-      showToast('Feed reset to defaults.', 'success');
+    /* ─── CSV IMPORT ─── */
+    function importCsv(event) {
+      const file = event.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n').map(l=>l.trim()).filter(l=>l);
+        if(lines.length < 2) return showToast('CSV is empty or missing data', 'error');
+        
+        const projs = getData('portfolio_projects', DEFAULT_PROJECTS);
+        let added = 0;
+        
+        for(let i=1; i<lines.length; i++) {
+          const parts = lines[i].split(',').map(p=>p.trim());
+          if(parts.length >= 1 && parts[0]) {
+            const pid = parts[0];
+            const icon = parts[1] || 'ph-folder';
+            const img = parts[2] || '';
+            
+            if(!projs.find(x=>x.id===pid)) {
+              projs.push({
+                id: pid, icon: icon, title: pid.replace(/-/g, ' ').toUpperCase(), subtitle: 'Imported Project', short: 'Needs description...', overview: '', image: img, tags: [], outcomes: [], steps: []
+              });
+              added++;
+            }
+          }
+        }
+        setData('portfolio_projects', projs);
+        renderProjectsList();
+        showToast(`Imported ${added} new project(s)`, 'success');
+        event.target.value = ''; // reset file input
+      };
+      reader.readAsText(file);
     }
 
-    /* ─────────── TOAST ─────────── */
-    let toastTimer;
-    function showToast(msg, type = 'success') {
-      const toast = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      toast.className = `toast ${type} show`;
-      toast.querySelector('i').className = type === 'success' ? 'ph ph-check-circle' : 'ph ph-warning-circle';
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => { toast.className = 'toast'; }, 3000);
+    /* ─── EXPORT & UTILS ─── */
+    function generateExport() {
+      const feed = getData('portfolio_feed', DEFAULT_FEED);
+      const projs = getData('portfolio_projects', DEFAULT_PROJECTS);
+      const code = `    const DEFAULT_FEED = ${JSON.stringify(feed, null, 2)};\n\n    const DEFAULT_PROJECTS = ${JSON.stringify(projs, null, 2)};`;
+      document.getElementById('exportCode').textContent = code;
+      document.getElementById('exportBlock').style.display = 'block';
     }
+    function copyExport() {
+      navigator.clipboard.writeText(document.getElementById('exportCode').textContent).then(()=>{ showToast('Copied to clipboard'); });
+    }
+    
+    let tTmr; function showToast(m,t='success'){ const e=document.getElementById('toast'); document.getElementById('toastMsg').textContent=m; e.className=`toast ${t} show`; clearTimeout(tTmr); tTmr=setTimeout(()=>e.className='toast',3000); }
   </script>
 </body>
 </html>
