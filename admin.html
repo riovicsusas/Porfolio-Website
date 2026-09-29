@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Riovic Portfolio</title>
+  <!-- 🔒 This page is not linked anywhere on the public site. Access it at /admin.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:  #060070;
+      --warm1: #C9C8BF;
+      --warm2: #BDBBB2;
+      --bg:    #F4F3EF;
+      --white: #FFFFFF;
+      --text:  #1a1a2e;
+      --muted: #6b6b7b;
+      --green: #16a34a;
+      --red:   #dc2626;
+      --card-r: 16px;
+    }
+
+    html, body { height: 100%; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
+
+    /* ═══ LOGIN GATE ═══ */
+    #loginGate {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .login-box {
+      background: var(--white); border-radius: 24px; padding: 48px 40px;
+      width: 100%; max-width: 380px; border: 1.5px solid var(--warm1);
+      box-shadow: 0 24px 64px rgba(6,0,112,0.08);
+    }
+    .login-logo { width: 52px; height: 52px; background: var(--navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; margin-bottom: 20px; }
+    .login-box h1 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .login-box p  { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .login-field input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--warm1); border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s; }
+    .login-field input:focus { border-color: var(--navy); }
+    .login-btn { width: 100%; margin-top: 6px; padding: 13px; background: var(--navy); color: white; border: none; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .login-btn:hover { opacity: 0.85; }
+    .login-error { color: var(--red); font-size: 12.5px; font-weight: 600; margin-top: 10px; display: none; text-align: center; }
+    .login-hint  { font-size: 11px; color: var(--warm2); text-align: center; margin-top: 20px; line-height: 1.5; }
+
+    /* ═══ ADMIN APP ═══ */
+    #adminApp { display: none; min-height: 100vh; }
+
+    /* Topbar */
+    .topbar {
+      background: var(--navy); padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 62px; position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 12px; color: white; }
+    .topbar-brand .tb-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .topbar-brand h1 { font-size: 15px; font-weight: 700; }
+    .topbar-brand p  { font-size: 11px; color: rgba(201,200,191,0.7); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .topbar-badge { background: rgba(201,200,191,0.15); color: var(--warm1); font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+    .topbar-badge::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+    .logout-btn { background: rgba(255,255,255,0.12); color: white; border: none; border-radius: 8px; padding: 8px 14px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+    .logout-btn:hover { background: rgba(255,255,255,0.22); }
+
+    /* Content */
+    .admin-content { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+
+    /* Section cards */
+    .admin-card { background: var(--white); border-radius: var(--card-r); padding: 28px 28px 20px; border: 1.5px solid var(--warm1); margin-bottom: 24px; }
+    .admin-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .admin-card-header-left { display: flex; align-items: center; gap: 12px; }
+    .acl-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(6,0,112,0.08); display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: 20px; flex-shrink: 0; }
+    .acl-text h2 { font-size: 16px; font-weight: 800; color: var(--navy); }
+    .acl-text p  { font-size: 12px; color: var(--muted); }
+    .count-badge { background: var(--bg); color: var(--navy); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--warm1); }
+
+    /* Add feed form */
+    .add-form { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px dashed var(--warm2); }
+    .add-form h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-field { margin-bottom: 12px; }
+    .form-field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+    .form-field input,
+    .form-field textarea,
+    .form-field select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--warm1); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--navy); }
+    .form-field textarea { resize: vertical; min-height: 80px; }
+    .btn-row { display: flex; gap: 10px; margin-top: 4px; }
+    .btn-primary { padding: 10px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost  { padding: 10px 20px; background: transparent; color: var(--muted); border: 1.5px solid var(--warm1); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-ghost:hover { background: var(--bg); }
+
+    /* Feed list */
+    .feed-list { display: flex; flex-direction: column; gap: 10px; }
+    .feed-list-item {
+      background: var(--bg); border-radius: 10px; padding: 14px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
+      border: 1px solid transparent; transition: border-color 0.2s;
+    }
+    .feed-list-item:hover { border-color: var(--warm1); }
+    .fli-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--navy); margin-top: 5px; flex-shrink: 0; }
+    .fli-body { flex: 1; }
+    .fli-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .fli-date { font-size: 11px; font-weight: 700; color: var(--warm2); text-transform: uppercase; letter-spacing: 0.04em; }
+    .fli-tag  { background: rgba(6,0,112,0.08); color: var(--navy); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px; }
+    .fli-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+    .fli-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .btn-icon { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.2s, color 0.2s; }
+    .btn-icon.edit   { background: rgba(6,0,112,0.07); color: var(--navy); }
+    .btn-icon.edit:hover   { background: var(--navy); color: white; }
+    .btn-icon.delete { background: rgba(220,38,38,0.07); color: var(--red); }
+    .btn-icon.delete:hover { background: var(--red); color: white; }
+
+    .empty-state { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
+    .empty-state i { font-size: 32px; display: block; margin-bottom: 8px; color: var(--warm2); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: var(--navy); color: white; padding: 12px 20px;
+      border-radius: 12px; font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      transform: translateY(80px); opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success i { color: #4ade80; }
+    .toast.error   i { color: #f87171; }
+
+    /* Reset danger zone */
+    .danger-zone { border-color: rgba(220,38,38,0.2); }
+    .danger-zone .admin-card-header .acl-icon { background: rgba(220,38,38,0.08); color: var(--red); }
+    .danger-zone .acl-text h2 { color: var(--red); }
+    .btn-danger { padding: 10px 20px; background: var(--red); color: white; border: none; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+    .btn-danger:hover { opacity: 0.85; }
+
+    /* Edit modal */
+    .edit-overlay { position: fixed; inset: 0; background: rgba(10,10,30,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .edit-overlay.open { opacity: 1; pointer-events: all; }
+    .edit-box { background: var(--white); border-radius: 18px; padding: 32px; width: 100%; max-width: 480px; box-shadow: 0 24px 64px rgba(0,0,0,0.15); transform: scale(0.95); transition: transform 0.25s; }
+    .edit-overlay.open .edit-box { transform: scale(1); }
+    .edit-box h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+
+    @media (max-width: 600px) {
+      .admin-content { padding: 20px 14px 60px; }
+      .topbar { padding: 0 16px; }
+      .admin-card { padding: 20px 16px; }
+      .add-form { padding: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════ LOGIN GATE ══════════════════════ -->
+  <div id="loginGate">
+    <div class="login-box">
+      <div class="login-logo"><i class="ph ph-lock-key"></i></div>
+      <h1>Admin Panel</h1>
+      <p>Portfolio management — private access only.</p>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="pwInput" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="login-btn" onclick="doLogin()">
+        <i class="ph ph-sign-in" style="margin-right:6px;font-size:16px;vertical-align:middle;"></i> Sign In
+      </button>
+      <p class="login-error" id="loginError"><i class="ph ph-warning-circle"></i> Incorrect password. Try again.</p>
+      <p class="login-hint">🔒 This URL is your private access point.<br>Don't share it publicly.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ ADMIN APP ══════════════════════ -->
+  <div id="adminApp">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-brand">
+        <div class="tb-icon"><i class="ph ph-gauge"></i></div>
+        <div>
+          <h1>Portfolio Admin</h1>
+          <p>Riovic Matthew G. Susas</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-badge">Logged In</div>
+        <button class="logout-btn" onclick="doLogout()"><i class="ph ph-sign-out"></i> Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ── What's New Feed Manager ── -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-card-header-left">
+            <div class="acl-icon"><i class="ph ph-newspaper"></i></div>
+            <div class="acl-text">
+              <h2>What's New Feed</h2>
+              <p>Manage the updates that appear on your homepage.</p>
+            </div>
+          </div>
+          <span class="count-badge" id="feedCount">0 items</span>
+        </div>
+
+        <!-- Add form -->
+        <div class="add-form">
+          <h3><i class="ph ph-plus-circle"></i> Add New Update</h3>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Date Label</label>
+              <input type="text" id="newDate" placeholder="e.g. Oct 2026" />
+            </div>
+            <div class="form-field">
+              <label>Tag</label>
+              <input type="text" id="newTag" placeholder="e.g. Shopify Flow" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Update Text</label>
+            <textarea id="newText" placeholder="Describe the update, win, or announcement..."></textarea>
+          </div>
+          <div class="form-field">
+            <label>Dot Style</label>
+            <select id="newAccent">
+              <option value="false">● Navy (primary / latest)</option>
+              <option value="true">● Warm (secondary)</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button class="btn-primary" onclick="addFeedItem()"><i class="ph ph-plus"></i> Add to Feed</button>
+            <button class="btn-ghost"  onclick="clearAddForm()">Clear</button>
+          </div>
+        </div>
+
+        <!-- Feed list -->
+        <div class="feed-list" id="feedList"></div>
+      </div>
+
+      <!-- ── Preview link ── -->
+      <div class="admin-card" style="padding:20px 28px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="acl-icon"><i class="ph ph-eye"></i></div>
+          <div class="acl-text">
+            <h2 style="font-size:14px;">View Your Portfolio</h2>
+            <p>Changes are saved instantly and appear on the public site.</p>
+          </div>
+          <a href="index.html" target="_blank" class="btn-primary" style="margin-left:auto;text-decoration:none;">
+            <i class="ph ph-arrow-square-out"></i> Open Site
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Danger Zone ── -->
+      <div class="admin-card danger-zone">
+        <div class="admin-card-header">
+          <div class="admin-card-header-left">
+            <div class="acl-icon"><i class="ph ph-trash"></i></div>
+            <div class="acl-text">
+              <h2>Reset Feed</h2>
+              <p>Restore the default feed items. This cannot be undone.</p>
+            </div>
+          </div>
+          <button class="btn-danger" onclick="resetFeed()"><i class="ph ph-arrow-counter-clockwise"></i> Reset to Defaults</button>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /adminApp -->
+
+  <!-- ══════════════════════ EDIT MODAL ══════════════════════ -->
+  <div class="edit-overlay" id="editOverlay" onclick="closeEditOnOverlay(event)">
+    <div class="edit-box">
+      <h3><i class="ph ph-pencil-simple" style="margin-right:6px;"></i>Edit Update</h3>
+      <input type="hidden" id="editId" />
+      <div class="form-row">
+        <div class="form-field">
+          <label>Date Label</label>
+          <input type="text" id="editDate" placeholder="e.g. Oct 2026" />
+        </div>
+        <div class="form-field">
+          <label>Tag</label>
+          <input type="text" id="editTag" placeholder="e.g. Shopify Flow" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Update Text</label>
+        <textarea id="editText" style="min-height:100px;"></textarea>
+      </div>
+      <div class="form-field">
+        <label>Dot Style</label>
+        <select id="editAccent">
+          <option value="false">● Navy (primary / latest)</option>
+          <option value="true">● Warm (secondary)</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="saveEdit()"><i class="ph ph-floppy-disk"></i> Save Changes</button>
+        <button class="btn-ghost"   onclick="closeEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="ph ph-check-circle"></i>
+    <span id="toastMsg">Saved!</span>
+  </div>
+
+  <script>
+    /* ══════════════════════ CONFIG ══════════════════════
+       Change ADMIN_PASSWORD below to your chosen password.
+       This file is hidden by URL obscurity (not linked publicly).
+    ══════════════════════════════════════════════════════ */
+    const ADMIN_PASSWORD = 'riovic2026';
+
+    const DEFAULT_FEED = [
+      { id: 1, date: 'Sep 2026', text: 'Launched a full Shopify Flow automation suite for a fashion brand — reducing manual order processing by 80%.', tag: 'Shopify Flow', accent: false },
+      { id: 2, date: 'Aug 2026', text: 'Migrated 50,000+ product records using Matrixify with zero downtime for a multi-store merchant.',             tag: 'Matrixify',   accent: true  },
+      { id: 3, date: 'Jul 2026', text: 'Built a Klaviyo email sequence that recovered 23% of abandoned carts within 48 hours of setup.',              tag: 'Klaviyo',     accent: true  },
+      { id: 4, date: 'Jun 2026', text: 'Portfolio website goes live — you\'re looking at it!',                                                         tag: 'Personal',    accent: true  },
+    ];
+
+    /* ─────────── AUTH ─────────── */
+    function doLogin() {
+      const pw = document.getElementById('pwInput').value;
+      if (pw === ADMIN_PASSWORD) {
+        document.getElementById('loginGate').style.display = 'none';
+        document.getElementById('adminApp').style.display  = 'block';
+        renderFeedList();
+      } else {
+        const err = document.getElementById('loginError');
+        err.style.display = 'block';
+        document.getElementById('pwInput').value = '';
+        document.getElementById('pwInput').focus();
+        setTimeout(() => { err.style.display = 'none'; }, 3000);
+      }
+    }
+    function doLogout() {
+      document.getElementById('loginGate').style.display = 'flex';
+      document.getElementById('adminApp').style.display  = 'none';
+      document.getElementById('pwInput').value = '';
+    }
+
+    /* ─────────── STORAGE HELPERS ─────────── */
+    function getFeed() {
+      try {
+        const s = localStorage.getItem('portfolio_feed');
+        return s ? JSON.parse(s) : [...DEFAULT_FEED];
+      } catch { return [...DEFAULT_FEED]; }
+    }
+    function saveFeed(feed) {
+      localStorage.setItem('portfolio_feed', JSON.stringify(feed));
+    }
+    function nextId(feed) {
+      return feed.length ? Math.max(...feed.map(f => f.id)) + 1 : 1;
+    }
+
+    /* ─────────── RENDER LIST ─────────── */
+    function renderFeedList() {
+      const feed = getFeed();
+      const list = document.getElementById('feedList');
+      document.getElementById('feedCount').textContent = `${feed.length} item${feed.length !== 1 ? 's' : ''}`;
+      if (!feed.length) {
+        list.innerHTML = `<div class="empty-state"><i class="ph ph-tray"></i>No feed items yet. Add one above!</div>`;
+        return;
+      }
+      list.innerHTML = feed.map((item, idx) => `
+        <div class="feed-list-item" id="fli-${item.id}">
+          <div class="fli-dot" style="background:${item.accent ? 'var(--warm2)' : 'var(--navy)'}"></div>
+          <div class="fli-body">
+            <div class="fli-meta">
+              <span class="fli-date">${item.date}</span>
+              <span class="fli-tag">${item.tag}</span>
+              <span style="font-size:10px;color:var(--warm2);margin-left:auto;">#${idx + 1}</span>
+            </div>
+            <p class="fli-text">${item.text}</p>
+          </div>
+          <div class="fli-actions">
+            <button class="btn-icon edit"   onclick="openEdit(${item.id})" title="Edit"><i class="ph ph-pencil-simple"></i></button>
+            <button class="btn-icon delete" onclick="deleteItem(${item.id})" title="Delete"><i class="ph ph-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ─────────── ADD ─────────── */
+    function addFeedItem() {
+      const date   = document.getElementById('newDate').value.trim();
+      const tag    = document.getElementById('newTag').value.trim();
+      const text   = document.getElementById('newText').value.trim();
+      const accent = document.getElementById('newAccent').value === 'true';
+
+      if (!date || !text || !tag) {
+        showToast('Please fill in all fields.', 'error');
+        return;
+      }
+      const feed = getFeed();
+      feed.unshift({ id: nextId(feed), date, text, tag, accent });
+      saveFeed(feed);
+      renderFeedList();
+      clearAddForm();
+      showToast('Update added to feed!', 'success');
+    }
+
+    function clearAddForm() {
+      ['newDate','newTag','newText'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('newAccent').value = 'false';
+    }
+
+    /* ─────────── DELETE ─────────── */
+    function deleteItem(id) {
+      if (!confirm('Delete this feed item? This cannot be undone.')) return;
+      const feed = getFeed().filter(f => f.id !== id);
+      saveFeed(feed);
+      renderFeedList();
+      showToast('Item deleted.', 'success');
+    }
+
+    /* ─────────── EDIT ─────────── */
+    function openEdit(id) {
+      const item = getFeed().find(f => f.id === id);
+      if (!item) return;
+      document.getElementById('editId').value     = id;
+      document.getElementById('editDate').value   = item.date;
+      document.getElementById('editTag').value    = item.tag;
+      document.getElementById('editText').value   = item.text;
+      document.getElementById('editAccent').value = String(item.accent);
+      document.getElementById('editOverlay').classList.add('open');
+    }
+    function closeEdit() {
+      document.getElementById('editOverlay').classList.remove('open');
+    }
+    function closeEditOnOverlay(e) {
+      if (e.target === document.getElementById('editOverlay')) closeEdit();
+    }
+    function saveEdit() {
+      const id     = parseInt(document.getElementById('editId').value);
+      const date   = document.getElementById('editDate').value.trim();
+      const tag    = document.getElementById('editTag').value.trim();
+      const text   = document.getElementById('editText').value.trim();
+      const accent = document.getElementById('editAccent').value === 'true';
+      if (!date || !text || !tag) { showToast('All fields are required.', 'error'); return; }
+      const feed = getFeed().map(f => f.id === id ? { ...f, date, tag, text, accent } : f);
+      saveFeed(feed);
+      renderFeedList();
+      closeEdit();
+      showToast('Changes saved!', 'success');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEdit(); });
+
+    /* ─────────── RESET ─────────── */
+    function resetFeed() {
+      if (!confirm('This will replace all your feed items with the original defaults. Continue?')) return;
+      saveFeed([...DEFAULT_FEED]);
+      renderFeedList();
+      showToast('Feed reset to defaults.', 'success');
+    }
+
+    /* ─────────── TOAST ─────────── */
+    let toastTimer;
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.className = `toast ${type} show`;
+      toast.querySelector('i').className = type === 'success' ? 'ph ph-check-circle' : 'ph ph-warning-circle';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { toast.className = 'toast'; }, 3000);
+    }
+  </script>
+</body>
+</html>
